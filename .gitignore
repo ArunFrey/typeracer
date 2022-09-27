@@ -1,6 +1,12 @@
 # Virtual environment
 venv-type/*
 
+# DS_Store
+.DS_Store
+
+# Logging files
+*.log
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
