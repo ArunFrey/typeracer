@@ -38,7 +38,7 @@ df = df.assign(
 )
 
 # progression of wpm over time
-fig = px.scatter(
+fig1 = px.scatter(
     df,
     x="race",
     y="wpm",
@@ -51,7 +51,7 @@ fig = px.scatter(
     },
 )
 
-fig2 = px.bar(
+fig2 = px.scatter(
     df,
     x="race",
     y="rel_performance",
@@ -64,3 +64,6 @@ fig2 = px.bar(
 fig2.update_layout(bargap=0)
 fig2.add_hline(y=0, line_width=1, line_dash="dash", line_color="black")
 fig2.update_layout(showlegend=False)
+
+fig1.write_image("plots/fig1_wpm-time.pdf", width=600, height=300)
+fig2.write_image("plots/fig2_rel-performance_time.pdf", width=600, height=300)
