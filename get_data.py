@@ -100,6 +100,11 @@ def format_data(df):
                 df["top_score_user"] = df[c].str.extract("\((.*)\)")
                 df[c] = [l[0] for l in df[c].str.split(" —")]
         
+        # add new column for race rank 
+        if c == "outcome": 
+            df['race_rank'] = df[c].str.extract("\((\d) of \d\)").astype('int')
+            continue
+        
         # convert percentage to number
         if c in ["acc"]: 
             df[c] = pd.to_numeric(df[c].str.replace("%", "", regex = True))/100
@@ -120,9 +125,3 @@ def format_data(df):
                 print(f"Column {c} cannot be converted to numeric")
         
     return df
-
-df = get_raw_races("abnf")
-df2 = format_data(df)
-df3 = get_raw_texts()
-df4 = get_raw_texts(full_text=False)
-df5 = format_data(df4)
