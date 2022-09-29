@@ -3,6 +3,9 @@ import requests
 import csv
 import pandas as pd 
 import argparse
+from os.path import exists
+from helpers import format_data
+
 
 def get_raw_texts(full_text = True): 
     """Downloads all texts available on typeracer.com
@@ -13,7 +16,6 @@ def get_raw_texts(full_text = True):
     Returns:
         pd.DataFrame: A dataframe containing all text data. 
     """
-
     
     if full_text: 
         text_content = "texts=full"
@@ -48,8 +50,29 @@ def main():
 
     parser = argparse.ArgumentParser(
         description='Getting text data from typeracer.')
+    parser.add_argument('--feature', 
+                        action=argparse.BooleanOptionalAction, 
+                        help = 'Specify whether to return full or abbreviated texts. Defaults to full.',
+                        required=False)
+    args = parser.parse_args()
     
-    # TODO: add parser and text functions
+    # get data
+    if args.feature is not None:
+        filepath = 'data/texts_abbrev.csv'
+    else:
+        filepath = 'data/texts.csv'
 
+    if exists(filepath): 
+        choice = input(f"{filepath} already exists. Download anyways? [Y/N]")
+        
+        if choice.lower() not in ["yes", "ye", "y"]: 
+            return print("Data not downloaded")
+
+    df = get_raw_texts(args.feature)
+    # format data
+    df = format_data(df)
+    # save data 
+    df.to_csv(filepath, index = False)
+    
 if __name__ == "__main__":
     main()

@@ -61,7 +61,8 @@ def main():
     # format data
     df = format_data(df)
     # store data
-    df.to_csv(f"data/races_{args.user_name}.csv")
+    df.to_csv(f"data/races_{args.user_name}.csv", index = False)
+
 
 if __name__ == "__main__":
     main()
