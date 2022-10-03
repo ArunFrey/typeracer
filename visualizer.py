@@ -48,7 +48,7 @@ def plot_wpm_over_time(username, rolling_avg=50):
         },
     )
 
-    fig.write_image(f"plots/{username}_wpm-time.pdf", width=600, height=350)
+    fig.write_image(f"plots/{username}_wpm-time.png", width=1200, height=600, scale = 1)
 
     return fig
 
@@ -111,7 +111,7 @@ def plot_hist(username, min_races=100):
         annotation_text=f"Max: {int(np.max(df['wpm']))}",
     )
 
-    fig.write_image(f"plots/{username}_hist.pdf", width=500, height=350)
+    fig.write_image(f"plots/{username}_hist.png", width=1000, height=700, scale = 1)
 
     return fig
 
