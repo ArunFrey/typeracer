@@ -21,7 +21,9 @@ def get_raw_texts(full_text=True):
     else:
         text_content = ""
 
-    r = requests.get(f"http://www.typeracerdata.com/texts?{text_content}&sort=id")
+    url = f"http://www.typeracerdata.com/texts?{text_content}&sort=id"
+    print(url)
+    r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "html.parser")
     table = soup.find("table")
@@ -66,8 +68,12 @@ def main():
 
         if choice.lower() not in ["yes", "ye", "y"]:
             return print("Data not downloaded")
+        
+    if args.feature is not None: 
+        df = get_raw_texts(args.feature)
+    else:
+        df = get_raw_texts()
 
-    df = get_raw_texts(args.feature)
     # format data
     df = format_data(df)
     # save data

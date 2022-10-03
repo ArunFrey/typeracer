@@ -17,11 +17,10 @@ def get_raw_races(username, last_races=99999999):
     Returns:
         pd.DataFrame: A dataframe containing a user's race data.
     """
-
+    url = f"http://www.typeracerdata.com/profile?username={username}&last={last_races}"
     # get parsed data
-    r = requests.get(
-        f"http://www.typeracerdata.com/profile?username={username}&last={last_races}"
-    )
+    r = requests.get(url)
+        
     data = r.text
     soup = BeautifulSoup(data, "html.parser")
 
@@ -66,7 +65,11 @@ def main():
     args = parser.parse_args()
 
     # get data
-    df = get_raw_races(args.user_name, args.last_races)
+    if args.last_races is not None: 
+        df = get_raw_races(args.user_name, args.last_races)
+    else: 
+        df = get_raw_races(args.user_name)
+
     # format data
     df = format_data(df)
     # store data
