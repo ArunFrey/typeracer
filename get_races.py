@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import csv
 import argparse
 import pandas as pd 
 from helpers import format_data
