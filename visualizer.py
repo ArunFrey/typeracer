@@ -111,7 +111,7 @@ def plot_hist(username, min_races=100):
         annotation_text=f"Max: {int(np.max(df['wpm']))}",
     )
 
-    fig.write_image(f"plots/{username}_hist.pdf", width=300, height=350)
+    fig.write_image(f"plots/{username}_hist.pdf", width=500, height=350)
 
     return fig
 
