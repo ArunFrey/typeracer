@@ -1,7 +1,7 @@
 # Typeracer: Analyse and plot user & text data
 
 This package allows you to scrape, analyse, and plot user and text data. 
-![](plots/abnf_wpm-time.pdf)
+![](plots/abnf_wpm-time.png)
 
 ## Installation: 
 
