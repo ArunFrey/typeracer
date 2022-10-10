@@ -90,6 +90,7 @@ def plot_facetted_residuals(user,
                            color = 'acc',
                            opacity = 0.5,
                            trendline='lowess', 
+                           labels = {"acc": "Accuracy"},
                            trendline_color_override='#DC143C')["data"]
         
         # auto selecting a position of the grid
