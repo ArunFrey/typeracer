@@ -3,20 +3,17 @@ from helpers import combine_text_and_races
 from plotly.subplots import make_subplots
 
 import numpy as np
-import plotly.io as pio
 import plotly.express as px
 
-pio.templates.default = "plotly_white"
 
-
-def plot_wpm_over_time(user, rolling_avg=50):
+def plot_wpm_over_time(user, rolling_avg=10):
 
     fig = px.scatter(
         user,
         x="race",
         y="wpm",
         color="acc",
-        opacity=0.5,
+        opacity=0.7,
         trendline="rolling",
         trendline_options=dict(window=rolling_avg),
         labels={
@@ -25,10 +22,50 @@ def plot_wpm_over_time(user, rolling_avg=50):
             "acc": "Accuracy",
         },
     )
+    
+    fig.update_traces(
+        marker_line_width=1, 
+        marker_size=10, 
+        )
+    fig.update_traces(
+        line_width=3, 
+        line_color = 'black', 
+        )
 
     return fig
 
 
+def plot_wins(user): 
+    
+    user['win'] = user['race_rank'] == 1
+    user['cum_win'] = user.sort_values('race')['win'].cumsum()
+    user['cum_50_win'] = user.sort_values('race')['win'].rolling(50).sum()
+    user['% of total'] = user['cum_win'] / user['race']
+    user['% of last 50'] = user['cum_50_win'] / 50
+    
+    user = user[['race', '% of total', '% of last 50']].melt(id_vars='race')
+    
+    fig = px.line(
+        user, 
+        x = 'race', 
+        y = 'value',
+        color = 'variable',
+        labels={
+            "race": "Race",
+            "value": "Share of races won",
+            "variable": ""
+        },
+        color_discrete_sequence = ["#7201a8", "#fb9f3a"]
+        )
+    
+    fig.update_traces(
+        line_width=3, 
+        )
+    
+    return fig
+
+
+    
 def plot_hist(user, texts, min_races=100):
 
     # select races with at least min_races
@@ -38,25 +75,34 @@ def plot_hist(user, texts, min_races=100):
         texts,
         x="average",
         histnorm='probability',
-        color_discrete_sequence=["rgb(255, 127, 14)"],
+        color_discrete_sequence=["#d33682"],
         labels={
-            "average": "Average performance across races",
+            "average": "Mean performance across all texts",
         },
     )
 
     fig.add_vline(
         x=np.mean(user["wpm"]),
         line_dash="dash",
+        line_color="white",
+        annotation_text="Avg.", 
+        annotation_position="top left",
     )
 
     fig.add_vline(
         x=np.mean(user["wpm"][0:20]),
         line_dash="dot",
+        line_color="white",
+        annotation_text="Last 20", 
+        annotation_position="top right",
     )
 
     fig.add_vline(
         x=np.max(user["wpm"]),
         line_dash="longdash",
+        line_color="white",
+        annotation_text="Top", 
+        annotation_position="top right",
     )
 
     return fig
@@ -82,6 +128,7 @@ def plot_facetted_residuals(user,
                         cols=n_cols,
                         subplot_titles=vars_labels)
 
+
     for v in vars:
         # trace extracted from the fig
         trace = px.scatter(df, 
@@ -91,13 +138,15 @@ def plot_facetted_residuals(user,
                            opacity = 0.5,
                            trendline='lowess', 
                            labels = {"acc": "Accuracy"},
-                           trendline_color_override='#DC143C')["data"]
-        
+                           trendline_color_override='#DC143C')["data"]        
         # auto selecting a position of the grid
         if col_pos == n_cols: row_pos += 1
         col_pos = col_pos + 1 if (col_pos < n_cols) else 1
         # adding trace to the grid
         fig.add_trace(trace[0], row=row_pos, col=col_pos)
         fig.add_trace(trace[1], row=row_pos, col=col_pos)
-        
+
+    fig.update_traces(marker_line_width=1, marker_size=7)
+    fig.update_traces(line_width=3, line_color = 'black')
+
     return fig
