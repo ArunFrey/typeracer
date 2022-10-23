@@ -3,7 +3,7 @@ import string
 import pandas as pd
 import numpy as np 
 
-from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
 from plotly.subplots import make_subplots
 
 
@@ -83,10 +83,14 @@ def combine_text_and_races(df, texts, texts_abbrev):
     df['cap'] = [sum(1 for c in words if c.isupper()) for words in df['text']]
     df['cap_rate'] = df['cap']/df['length']
 
-    # control for linear progression, and save residual
+    # control for progression, and save residual
     X = np.array(df['race']).reshape((-1, 1))
     y = np.array(df['wpm'])
-    reg = LinearRegression().fit(X, y)
+    
+    
+    svr_rbf = SVR(kernel="rbf")
+
+    reg = svr_rbf.fit(X, y)
     df['pred'] = reg.predict(X)
     df['res'] = (y - df['pred'])
     
