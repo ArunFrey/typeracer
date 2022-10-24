@@ -7,7 +7,6 @@ This app allows you to visualise textracer data of any player, and monitor your 
 The app allows you to monitor your progress over time, analyse what components of a text you are struggling with, and compare your performance to that of other players.
 
 You can launch the app by clicking [here](https://arunfrey-typeracer-app-siw3aw.streamlitapp.com/)
-): 
 
 Alternatively, you can follow the steps below to install the repo and download user data.  
 
@@ -39,4 +38,13 @@ python3 -m get_texts
 Instead of downloading the full texts, you can also download the abbreviated texts by running: 
 ```
 python3 -m get_texts --no-feature 
+```
+
+### Run this app locally
+
+To run this app locally, run:
+
+```
+pip install --upgrade streamlit
+streamlit run https://raw.githubusercontent.com/streamlit/demo-uber-nyc-pickups/main/streamlit_app.py
 ```
