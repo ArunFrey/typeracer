@@ -10,6 +10,8 @@ You can launch the app by clicking [here](https://arunfrey-typeracer-app-siw3aw.
 
 Alternatively, you can follow the steps below to install the repo and download user data.  
 
+![](img/example.gif)
+
 ## Installation: 
 
 ```
