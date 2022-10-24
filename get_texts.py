@@ -67,8 +67,8 @@ def main():
 
         if choice.lower() not in ["yes", "ye", "y"]:
             return print("Data not downloaded")
-        
-    if args.feature is not None: 
+
+    if args.feature is not None:
         df = get_raw_texts(args.feature)
     else:
         df = get_raw_texts()
