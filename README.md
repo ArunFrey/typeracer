@@ -1,4 +1,4 @@
-# Typeracer: Analyse and plot user & text data
+# Typeracer app: App that lets you plot, analyse, and monitor your progress on typeracer.com
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://arunfrey-typeracer-app-siw3aw.streamlitapp.com/)
 
