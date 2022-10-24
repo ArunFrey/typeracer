@@ -48,5 +48,5 @@ To run this app locally, run:
 
 ```
 pip install --upgrade streamlit
-streamlit run https://raw.githubusercontent.com/streamlit/demo-uber-nyc-pickups/main/streamlit_app.py
+streamlit run app.py
 ```
