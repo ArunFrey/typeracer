@@ -4,7 +4,11 @@
 
 This app allows you to visualise textracer data of any player, and monitor your progress in typing speed! Once you input a username, it will download the user's race history from https://typeracerdata.com, or load the data from disk if it already exists.
 
-The app allows you to monitor your progress over time, analyse what components of a text you are struggling with, and compare your performance to that of other players.
+The app allows you to monitor your progress over time, analyse what components of a text you are struggling with, and compare your performance to that of other players. You can: 
+- monitor how your typing speed (in WPM) improves over time
+- check how likely you are to win a given race
+- see what text features you are struggling with (punctuation, capitalisation, difficulty, text length)
+- see how your speed compares to that of other players
 
 You can launch the app by clicking [here](https://arunfrey-typeracer-app-siw3aw.streamlitapp.com/).
 
