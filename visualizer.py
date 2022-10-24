@@ -24,11 +24,10 @@ def plot_wpm_over_time(user, rolling_avg=10):
     )
     
     fig.update_traces(
-        marker_line_width=1, 
-        marker_size=10, 
+        marker_line_width=0, 
         )
     fig.update_traces(
-        line_width=3, 
+        line_width=1, 
         line_color = 'black', 
         )
 
@@ -62,6 +61,14 @@ def plot_wins(user):
         line_width=3, 
         )
     
+    fig.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1
+    ))
+    
     return fig
 
 
@@ -90,10 +97,10 @@ def plot_hist(user, texts, min_races=100):
     )
 
     fig.add_vline(
-        x=np.mean(user["wpm"][0:20]),
+        x=np.mean(user["wpm"][0:51]),
         line_dash="dot",
         line_color="white",
-        annotation_text="Last 20", 
+        annotation_text="Last 50", 
         annotation_position="top right",
     )
 
@@ -135,7 +142,7 @@ def plot_facetted_residuals(user,
                            x=v, 
                            y=y, 
                            color = 'acc',
-                           opacity = 0.5,
+                           opacity = 0.4,
                            trendline='lowess', 
                            labels = {"acc": "Accuracy"},
                            trendline_color_override='#DC143C')["data"]        

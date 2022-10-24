@@ -1,10 +1,11 @@
-from curses.ascii import isupper
 import string
+import re
+
 import pandas as pd
 import numpy as np 
 
 from sklearn.svm import SVR
-from plotly.subplots import make_subplots
+from curses.ascii import isupper
 
 
 def format_data(df):
@@ -32,17 +33,18 @@ def format_data(df):
 
         # add new column for race rank
         if c == "outcome":
-            df["race_rank"] = df[c].str.extract("\((\d) of \d\)").astype("int")
+            df["race_rank"] = df[c].str.extract("\((\d+) of \d+\)").astype("int")
             continue
 
         # convert percentage to number
         if c in ["acc"]:
-            df[c] = pd.to_numeric(df[c].str.replace("%", "", regex=True)) / 100
+            df[c] = df[c].str.replace("%|—", "", regex=True)
+            df[c] = pd.to_numeric(df[c]) / 100
             continue
 
         # get rid of number formatting for other numeric variables
-        if c in ["id", "races", "top_score", "race"]:
-            df[c] = df[c].str.replace("#|,|\.$", "", regex=True)
+        if c in ["id", "races", "top_score", "race", "points"]:
+            df[c] = df[c].str.replace("#|—|,|\.$", "", regex=True)
 
         if c in ["date", "active_since"]:
             df[c] = pd.to_datetime(df[c])
@@ -53,6 +55,9 @@ def format_data(df):
                 df[c] = pd.to_numeric(df[c])
             except:
                 print(f"Column {c} cannot be converted to numeric")
+    
+    # drop early race data, where no accuracy or point metrics existed
+    df.dropna(inplace=True)
 
     return df
 
@@ -74,13 +79,13 @@ def combine_text_and_races(df, texts, texts_abbrev):
     df = df.rename(columns={"text": "text_abbrev"})
     df = pd.merge(df, texts, on="id", how="left")
     
-    count = lambda l1, l2: len(list(filter(lambda c: c in l2, l1)))
-    
+    p = re.compile("[" + re.escape(string.punctuation) + "]")   
+
     # add punctuation, letter, and capitalization count
-    df['letters'] =  [count(words, string.ascii_letters) for words in df['text']]
-    df['punct'] = [count(words, string.punctuation) for words in df['text']]
+    df['punct'] = df['text'].str.count(p)
+    df['letters'] =  df['text'].str.count('\w')
     df['punct_rate'] = df['punct']/df['length']
-    df['cap'] = [sum(1 for c in words if c.isupper()) for words in df['text']]
+    df['cap'] = df['text'].str.count('[A-Z]')
     df['cap_rate'] = df['cap']/df['length']
 
     # control for progression, and save residual

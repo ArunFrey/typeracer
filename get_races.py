@@ -39,7 +39,7 @@ def get_raw_races(username, last_races=99999999):
             race_data.append(content)
 
     df = pd.DataFrame(race_data, columns=columns)
-
+    
     return df
 
 

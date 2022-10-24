@@ -22,7 +22,6 @@ def get_raw_texts(full_text=True):
         text_content = ""
 
     url = f"http://www.typeracerdata.com/texts?{text_content}&sort=id"
-    print(url)
     r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "html.parser")
