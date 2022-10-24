@@ -6,9 +6,9 @@ This app allows you to visualise textracer data of any player, and monitor your 
 
 The app allows you to monitor your progress over time, analyse what components of a text you are struggling with, and compare your performance to that of other players.
 
-You can launch the app by clicking [here](https://arunfrey-typeracer-app-siw3aw.streamlitapp.com/)
+You can launch the app by clicking [here](https://arunfrey-typeracer-app-siw3aw.streamlitapp.com/).
 
-Alternatively, you can follow the steps below to install the repo and download user data.  
+Alternatively, you can follow the steps below to install the repo, download user or text data, and run the app locally.
 
 ![](img/example.gif)
 
