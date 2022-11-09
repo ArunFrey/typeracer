@@ -20,12 +20,10 @@ st.markdown(
          This app allows you to visualise typeracer data of any player, and monitor your progress in typing speed!
          Once you input a username, it will download the user's race history 
          from https://typeracerdata.com, or load the data from disk if it already exists. 
-
-        The app allows you to monitor your progress over time, 
-        analyse what components of a text you are struggling with, 
+         It'll allow you to examine your progress over time, analyse what components of a text you are struggling with, 
         and compare your performance to that of other players.
         
-        The app was created by me, [Arun Frey](https://arunfrey.github.io). You can view the source code [here](https://github.com/arunfrey/typeracer).
+        The app was created by me, [Arun Frey](https://arunfrey.github.io) :wave:. You can view the source code [here](https://github.com/arunfrey/typeracer).
         
          """
 )
