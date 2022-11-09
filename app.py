@@ -13,11 +13,11 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-st.title("Visualizing textracer data")
+st.title("Visualizing typeracer data")
 
 st.markdown(
     """
-         This app allows you to visualise textracer data of any player, and monitor your progress in typing speed!
+         This app allows you to visualise typeracer data of any player, and monitor your progress in typing speed!
          Once you input a username, it will download the user's race history 
          from https://typeracerdata.com, or load the data from disk if it already exists. 
 
